@@ -1,0 +1,42 @@
+{
+	"objects": [
+		{
+			"application": "Local|LocalApp",
+			"name": "2.0",
+			"kind": "ApplicationVersion"
+		},
+		{
+			"version": "1.0",
+			"runOnCreation": false,
+			"ownerParties": [
+				"relmgr@forwardinc.com"
+			],
+			"applicationVersions": [
+				"Local|LocalApp/1.0"
+			],
+			"name": "testwebhook",
+			"kind": "Release"
+		},
+		{
+			"release": "testwebhook/1.0",
+			"environments": [
+				"LocalDev"
+			],
+			"skipTasksWithUnchangedApplications": false,
+			"approvalGate": "AUTOMATIC",
+			"isApprovalRequired": false,
+			"name": "Dev",
+			"kind": "Phase"
+		},
+		{
+			"phase": "testwebhook/1.0/Dev",
+			"isDisabled": false,
+			"applicationVersions": [
+				"Local|LocalApp/1.0"
+			],
+			"description": "<p>Change my description</p>",
+			"name": "Deploy",
+			"kind": "Task"
+		}
+	]
+}
