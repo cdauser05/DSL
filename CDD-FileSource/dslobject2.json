@@ -2,7 +2,7 @@
 	"objects": [
 		{
 			"application": "Local|LocalApp",
-			"name": "2.0",
+			"name": "2.1",
 			"kind": "ApplicationVersion"
 		},
 		{
