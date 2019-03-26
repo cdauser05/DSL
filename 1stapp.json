@@ -1,0 +1,257 @@
+{
+		"objects": [
+		{
+			"application": "Local|Music UI",
+			"name": "${musicUiAppVersion}",
+			"kind": "ApplicationVersion"
+		},
+		{
+			"application": "Local|Music Backend",
+			"name": "${musicBackendAppVersion}",
+			"kind": "ApplicationVersion"
+		},
+		{
+			"application": "Local|Music IMS",
+			"name": "${musivImsReleaseVersion}",
+			"kind": "ApplicationVersion"
+		},
+		{
+			"runOnCreation": false,
+			"ownerParties": [
+				"relmgr@forwardinc.com",
+				"superuser@ca.com"
+			],
+			"memberParties": [
+				"relmgr@forwardinc.com",
+				"Music Team"
+			],
+			"applicationVersions": [
+				"Local|Music IMS/${musivImsReleaseVersion}",
+				"Local|Music Backend/${musicBackendAppVersion}",
+				"Local|Music UI/${musicUiAppVersion}"
+			],
+			"version": "${ReleaseVersion}5",
+			"name": "${ReleaseName}",
+			"kind": "Release"
+		},
+		{
+			"release": "${ReleaseName}/${ReleaseVersion}5",
+			"scope": "PHASE_SCOPE",
+			"value": "",
+			"name": "ID-Num-Token",
+			"kind": "ReleaseToken"
+		},
+		{
+			"isApprovalRequired": false,
+			"skipTasksWithUnchangedApplications": false,
+			"approvalGate": "MANUAL",
+			"ownerParties": [
+				"relmgr@forwardinc.com"
+			],
+			"release": "${ReleaseName}/${ReleaseVersion}5",
+			"environments": [
+				"DEV"
+			],
+			"name": "DEV",
+			"kind": "Phase"
+		},
+		{
+			"isApprovalRequired": false,
+			"skipTasksWithUnchangedApplications": false,
+			"approvalGate": "MANUAL",
+			"previousPhase": "DEV",
+			"release": "${ReleaseName}/${ReleaseVersion}5",
+			"environments": [
+				"QA"
+			],
+			"name": "QA",
+			"kind": "Phase"
+		},
+		{
+			"isApprovalRequired": false,
+			"skipTasksWithUnchangedApplications": false,
+			"approvalGate": "MANUAL",
+			"previousPhase": "QA",
+			"release": "${ReleaseName}/${ReleaseVersion}5",
+			"environments": [
+				"PROD"
+			],
+			"name": "PROD",
+			"kind": "Phase"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/DEV",
+			"isDisabled": false,
+			"name": "Open Ticket Jira",
+			"kind": "Task",
+			"plugin": "Jira/1.2.1",
+			"endpoint": "Music - Jira",
+			"parameters": {
+				"issueType": "Sub-task",
+				"summary": "This is a DEV",
+				"projectKey": "AP",
+				"advanced": "false"
+			},
+			"type": "Create JIRA Issue"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/DEV",
+			"isDisabled": false,
+			"previousTasks": [
+				"Open Ticket Jira"
+			],
+			"name": "SNOW open change",
+			"kind": "Task",
+			"plugin": "ServiceNow/2.1",
+			"endpoint": "Music - ServiceNow-ven01720",
+			"parameters": {
+				"shortDescription": "This is a DEV"
+			},
+			"type": "Create Change Request"
+		},
+		{
+			"ownerParties": [
+				"relmgr@forwardinc.com"
+			],
+			"phase": "${ReleaseName}/${ReleaseVersion}5/DEV",
+			"isDisabled": false,
+			"previousTasks": [
+				"SNOW open change"
+			],
+			"name": "Deploy Web App",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/DEV",
+			"isDisabled": false,
+			"previousTasks": [
+				"Deploy Web App"
+			],
+			"name": "Deploy Reports App",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/DEV",
+			"isDisabled": false,
+			"previousTasks": [
+				"Deploy Reports App"
+			],
+			"name": "Run DEVs",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/DEV",
+			"isDisabled": false,
+			"previousTasks": [
+				"Run DEVs"
+			],
+			"name": "Deploy by REST",
+			"kind": "Task",
+			"plugin": "REST/2.1",
+			"endpoint": "Music- REST Deploy DEV",
+			"parameters": {
+				"method": "GET",
+				"statusCheck": "false"
+			},
+			"type": "REST"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/QA",
+			"isDisabled": false,
+			"name": "Deploy Web App",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/QA",
+			"isDisabled": false,
+			"previousTasks": [
+				"Deploy Web App"
+			],
+			"name": "Deploy Reports App",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/QA",
+			"isDisabled": false,
+			"previousTasks": [
+				"Deploy Reports App"
+			],
+			"name": "Run DEVs",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/QA",
+			"isDisabled": false,
+			"previousTasks": [
+				"Run DEVs"
+			],
+			"name": "Deploy by REST",
+			"kind": "Task",
+			"plugin": "REST/2.1",
+			"endpoint": "Music- REST Deploy QA",
+			"parameters": {
+				"method": "GET",
+				"statusCheck": "false"
+			},
+			"type": "REST"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/QA",
+			"isDisabled": false,
+			"previousTasks": [
+				"Deploy by REST"
+			],
+			"name": "Jira",
+			"kind": "Task",
+			"plugin": "Jira/1.2.1",
+			"endpoint": "Music - Jira",
+			"parameters": {
+				"issueType": "Story",
+				"summary": "This is a DEV story",
+				"projectKey": "AP",
+				"advanced": "false"
+			},
+			"type": "Create JIRA Issue"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/PROD",
+			"isDisabled": false,
+			"name": "Deploy Web App",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/PROD",
+			"isDisabled": false,
+			"previousTasks": [
+				"Deploy Web App"
+			],
+			"name": "Deploy Reports App",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/PROD",
+			"isDisabled": false,
+			"previousTasks": [
+				"Deploy Reports App"
+			],
+			"name": "Run DEVs",
+			"kind": "Task"
+		},
+		{
+			"phase": "${ReleaseName}/${ReleaseVersion}5/PROD",
+			"isDisabled": false,
+			"previousTasks": [
+				"Run DEVs"
+			],
+			"name": "Deploy by REST",
+			"kind": "Task",
+			"plugin": "REST/2.1",
+			"endpoint": "Music- REST Deploy Prod",
+			"parameters": {
+				"method": "GET",
+				"statusCheck": "false"
+			},
+			"type": "REST"
+		}
+	]
+}
