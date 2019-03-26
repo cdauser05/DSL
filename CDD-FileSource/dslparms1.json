@@ -1,0 +1,33 @@
+{
+"parameters": [{
+			"name": "musicUiAppVersion",
+			"value": "2.4"
+		},
+		{
+			"name": "musicBackendAppVersion",
+			"value": "6.5"
+		},
+		{
+			"name": "musivImsReleaseVersion",
+			"value": "56"
+		},
+		{
+			"name": "ReleaseVersion",
+			"value": "v56"
+		},
+		{
+			"name": "ReleaseName",
+			"value": "Banking-FY19Q2-Andrew-Demo"
+		},
+		
+		{
+			"name": "TemplateName",
+			"value": "Assaf-T"
+		}
+	],
+	"reference": {
+		"fileName": "SaaS-prod-dsl-objects only.json",
+		"fileSource": "GardenPipelineReference"
+	}
+
+}	
